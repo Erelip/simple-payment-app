@@ -22,6 +22,13 @@ export interface IEnvironment {
         secret: string;
         name: string;
     };
+    paypal: {
+        clientId: string;
+        clientSecret: string;
+        sandbox_account: string;
+        access_token: string;
+    };
+
 }
 
 export interface ValidationSchema {

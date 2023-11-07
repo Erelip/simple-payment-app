@@ -47,6 +47,12 @@ class Environment {
                     secret: required("JWT_SECRET"),
                     name: required("JWT_NAME"),
                 },
+                paypal: {
+                    clientId: required("PAYPAL_CLIENT_ID"),
+                    clientSecret: required("PAYPAL_CLIENT_SECRET"),
+                    sandbox_account: required("PAYPAL_SANDBOX_ACCOUNT"),
+                    access_token: required("PAYPAL_ACCESS_TOKEN"),
+                },
             };
         return this.env;
     };
