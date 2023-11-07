@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestException, UnauthorizedException } from "@exceptions";
-import { CartService, ProductsService } from "@services";
+import { CartService, ItemService, ProductsService } from "@services";
 
 class CartController {
     get = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,8 +15,8 @@ class CartController {
     getByUserId = async (req: Request, res: Response, next: NextFunction) => {
         const { id } = req.user;
         try {
-            const product = await CartService.getCartByUserId(id);
-            return res.status(200).json(product);
+            const cart = await CartService.getCartByUserId(id);
+            return res.status(200).json(cart);
         } catch (err) {
             next(err);
         }
@@ -30,7 +30,7 @@ class CartController {
 
             if (product == null ) throw new BadRequestException("Bad request")
 
-            const cart = await CartService.create(id, parseInt(products_id));
+            const cart = await CartService.add(id, parseInt(products_id));
 
             if (cart == null ) throw new BadRequestException("An error has occurred")
 
@@ -44,7 +44,7 @@ class CartController {
         const user_id = req.user.id;
         const { id } = req.params;
         try {
-            const product = await CartService.deleteOne(user_id, parseInt(id));
+            const product = await ItemService.deleteOne(user_id, parseInt(id));
             
             if (product == null ) throw new BadRequestException("An error has occurred")
 

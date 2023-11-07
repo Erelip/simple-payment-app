@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { CartService } from "@services";
 import { Prisma } from "@providers";
 
 class UserService {
@@ -39,6 +40,9 @@ class UserService {
                 email: email,
                 password: password,
             },
+        }).then((user) => {
+            CartService.create(user.id);
+            return user;
         });
     };
 

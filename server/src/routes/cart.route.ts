@@ -6,12 +6,6 @@ import { Router } from "express";
 const router = Router();
 
 router.get(
-    "/",
-    isAuthenticated,
-    CartController.getByUserId
-);
-
-router.get(
     "/:id",
     isAuthenticated,
     CartController.getByUserId
@@ -32,7 +26,7 @@ router.delete(
 router.delete(
     "/:id",
     isAuthenticated,
-    CartController.delete
+    CartController.deleteById
 );
 
 export default router;

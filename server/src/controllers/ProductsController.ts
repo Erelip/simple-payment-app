@@ -4,7 +4,6 @@ import { ProductsService } from "@services";
 
 class ProductsController {
     get = async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.user);
         try {
             const products = await ProductsService.getProducts();
             return res.status(200).json(products);
