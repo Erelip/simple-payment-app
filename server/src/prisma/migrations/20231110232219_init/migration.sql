@@ -49,9 +49,11 @@ CREATE TABLE `order` (
     `user_id` INTEGER NOT NULL,
     `total` DOUBLE NOT NULL,
     `status` VARCHAR(255) NOT NULL,
+    `reference_id` VARCHAR(255) NOT NULL,
     `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updated_at` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `order_reference_id_key`(`reference_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -59,7 +61,7 @@ CREATE TABLE `order` (
 CREATE TABLE `item` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `product_id` INTEGER NOT NULL,
-    `cart_id` INTEGER NULL,
+    `cart_id` INTEGER NOT NULL,
     `order_id` INTEGER NULL,
     `name` VARCHAR(255) NOT NULL,
     `price` DOUBLE NOT NULL,
@@ -79,7 +81,7 @@ ALTER TABLE `order` ADD CONSTRAINT `order_user_id_fkey` FOREIGN KEY (`user_id`) 
 ALTER TABLE `item` ADD CONSTRAINT `item_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `Products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `item` ADD CONSTRAINT `item_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `cart`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `item` ADD CONSTRAINT `item_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `item` ADD CONSTRAINT `item_order_id_fkey` FOREIGN KEY (`order_id`) REFERENCES `order`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

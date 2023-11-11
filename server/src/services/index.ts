@@ -3,6 +3,8 @@ import ProductsService from "@services/ProductsService";
 import UserService from "@services/UserService";
 import CartService from "@services/CartService";
 import ItemService from "@services/ItemService";
+import PaymentService from "@services/PaymentService";
+import OrderService from "@services/OrderService";
 
 export {
     DefaultService,
@@ -10,4 +12,6 @@ export {
     UserService,
     CartService,
     ItemService,
+    PaymentService,
+    OrderService,
 };

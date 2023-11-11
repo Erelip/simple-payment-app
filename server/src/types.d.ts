@@ -28,7 +28,6 @@ export interface IEnvironment {
         sandbox_account: string;
         access_token: string;
     };
-
 }
 
 export interface ValidationSchema {

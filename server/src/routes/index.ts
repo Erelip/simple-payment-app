@@ -2,6 +2,7 @@ import defaultRoute from "@routes/default.route";
 import productsRoute from "@routes/products.route";
 import authRoute from "@routes/auth.route";
 import cartRoute from "@routes/cart.route";
+import paymentRoute from "@routes/payment.route";
 import { Router } from "express";
 
 interface Route {
@@ -26,6 +27,10 @@ const routes: Route[] = [
     {
         path: "/cart",
         route: cartRoute,
+    },
+    {
+        path: "/payment",
+        route: paymentRoute,
     },
 ];
 

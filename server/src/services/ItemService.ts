@@ -16,7 +16,7 @@ class ItemService {
                 },
             });
         } catch(error) {
-            return null;
+            return [];
         }
     };
 
@@ -46,6 +46,45 @@ class ItemService {
                         connect: { id: product.id },
                     },
                     number: 1,
+                    price: product.price,
+                    name: product.name
+                }
+            });
+
+            if (!item) throw new BadRequestException("An error has occured.");
+            return item;
+        } catch(error) {
+            return null;
+        }
+    };
+
+    update = async (product_id: number, cart_id: number, order_id: number, number?: number): Promise<Item | null> => {
+        try {
+            const product = await ProductsService.getProductById(product_id);
+
+            if (!product) throw new BadRequestException("Product not found");
+
+            var item = await Prisma.item.upsert({
+                where: {
+                    product_order_id: {
+                        product_id: product_id,
+                        order_id: order_id
+                    }
+                },
+                update: {
+                    number: {
+                        increment: 1
+                    }
+                },
+                create: {
+                    order: {
+                        connect: { id: order_id },
+                    },
+                    product: {
+                        connect: { id: product.id },
+                    },
+
+                    number: number? number : 1,
                     price: product.price,
                     name: product.name
                 }
