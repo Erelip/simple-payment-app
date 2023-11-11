@@ -133,6 +133,18 @@ class ItemService {
             return null;
         }
     };
+
+    deleteByCartId = async (cart_id: number): Promise<any> => {
+        try {
+            return await Prisma.item.deleteMany({
+                where: {
+                    cart_id: cart_id,
+                },
+            });
+        } catch {
+            return null;
+        }
+    };
 }
 
 export default new ItemService();

@@ -68,6 +68,7 @@ class OrderService {
         });
         await Promise.all(items.map(async (item) => {
             await ItemService.update(item.product_id, item.product_id, order.id, item.number);
+            order.products.push(item);
         }));
         return order;
     };
