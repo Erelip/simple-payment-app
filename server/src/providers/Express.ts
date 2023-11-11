@@ -24,7 +24,12 @@ class Express {
 
     middleware = () => {
         this.app.use(cookieParser());
-
+        this.app.use(
+            cors({
+                origin: ["http://localhost:8081"],
+                credentials: true,
+            })
+        );
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
 
