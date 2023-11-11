@@ -12,11 +12,12 @@ class PaymentController {
     create = async (req: Request, res: Response, next: NextFunction) => {
         const { id } = req.user;
         try {
-            const cart = await CartService.getCartByUserId(id);
-            
+            const cart = await CartService.getCartByUserId(id);            
             if (cart === null) throw new BadRequestException("Cart not found");
 
             const items = await ItemService.getItemsByCartId(cart.id);
+            if (items.length === 0) throw new BadRequestException("Cart is empty");
+
             const amount = items.reduce((acc, item) => {
                 return acc + (item.number * item.price);
             }, 0);
