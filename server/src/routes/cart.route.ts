@@ -6,27 +6,27 @@ import { Router } from "express";
 const router = Router();
 
 router.get(
-    "/:id",
+    "/",
     isAuthenticated,
     CartController.getByUserId
 );
 
 router.post(
-    "/:id",
+    "/",
     isAuthenticated,
     CartController.add
+);
+
+router.patch(
+    "/",
+    isAuthenticated,
+    CartController.update
 );
 
 router.delete(
     "/",
     isAuthenticated,
     CartController.delete
-);
-
-router.delete(
-    "/:id",
-    isAuthenticated,
-    CartController.deleteById
 );
 
 export default router;

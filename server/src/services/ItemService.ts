@@ -63,18 +63,26 @@ class ItemService {
             const product = await ProductsService.getProductById(product_id);
 
             if (!product) throw new BadRequestException("Product not found");
+            
+            const product_unique = order_id ? ({
+                product_order_id:
+                {
+                    product_id: product_id,
+                    order_id: order_id
+                }
+            })
+            : ({
+                product_cart_id:
+                {
+                    product_id: product_id,
+                    cart_id: cart_id
+                }
+            });
 
             var item = await Prisma.item.upsert({
-                where: {
-                    product_order_id: {
-                        product_id: product_id,
-                        order_id: order_id
-                    }
-                },
+                where: product_unique,
                 update: {
-                    number: {
-                        increment: 1
-                    }
+                    number: number
                 },
                 create: {
                     order: {

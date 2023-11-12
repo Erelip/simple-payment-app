@@ -24,13 +24,13 @@ class CartController {
 
     add = async (req: Request, res: Response, next: NextFunction) => {
         const { id } = req.user;
-        const products_id = req.params.id;
+        const { product_id } = req.body;
         try {
-            const product = await ProductsService.getProductById(parseInt(products_id));
+            const product = await ProductsService.getProductById(parseInt(product_id));
 
             if (product == null ) throw new BadRequestException("Bad request")
 
-            const cart = await CartService.add(id, parseInt(products_id));
+            const cart = await CartService.add(id, parseInt(product_id));
 
             if (cart == null ) throw new BadRequestException("An error has occurred")
 
@@ -40,12 +40,21 @@ class CartController {
         }
     };
 
-    deleteById = async (req: Request, res: Response, next: NextFunction) => {
+    update = async (req: Request, res: Response, next: NextFunction) => {
         const user_id = req.user.id;
-        const { id } = req.params;
+        const { product_id, quantity } = req.body;
+
         try {
-            const product = await ItemService.deleteOne(user_id, parseInt(id));
-            
+            const cart = await CartService.getCartByUserId(user_id);
+            if (cart == null ) throw new BadRequestException("An error has occurred")
+
+            if (quantity <= 0) {
+                const product = await ItemService.delete(product_id, cart.id);
+                if (product == null ) throw new BadRequestException("An error has occurred")
+                return res.status(200).json(product);
+            }
+
+            const product = await ItemService.update(product_id, cart.id, 0, quantity);
             if (product == null ) throw new BadRequestException("An error has occurred")
 
             return res.status(200).json(product);
