@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Auth, SignUp, SignIn, Collection } from './views';
+import { Auth, SignUp, SignIn, Collection, Cart, Order } from './views';
 import { RequireAuth } from './utils';
 import { ProductsService } from './services';
 
@@ -28,11 +28,14 @@ const router = createBrowserRouter([
   {
     path: "/collection/*",
     element: <Collection />,
-    loader: async () => {
-      const productsService = new ProductsService();
-      const products = await productsService.getProducts();
-      return products;
-    }
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
+  {
+    path: "/order/*",
+    element: <Order />,
   },
 ]);
 

@@ -26,6 +26,9 @@ class OrderService {
                 where: {
                     id: id,
                 },
+                include: {
+                    products: true,
+                },
             });
         } catch {
             return null;

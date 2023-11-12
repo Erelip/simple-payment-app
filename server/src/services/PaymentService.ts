@@ -82,8 +82,8 @@ class PaymentService {
                 }],
                 custom_id: user_id, 
                 application_context: {
-                    return_url: 'https://usable-cub-mainly.ngrok-free.app/payment/success',
-                    cancel_url: 'https://usable-cub-mainly.ngrok-free.app/payment/cancel',
+                    return_url: 'http://localhost:8081/order/success',
+                    cancel_url: 'http://localhost:8081/order/cancel',
 
                 },
             };

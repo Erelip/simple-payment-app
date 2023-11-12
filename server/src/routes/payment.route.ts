@@ -13,7 +13,13 @@ router.post(
 
 router.get(
     "/success",
-    // isAuthenticated,
+    isAuthenticated,
+    PaymentController.success
+);
+
+router.post(
+    "/success",
+    isAuthenticated,
     PaymentController.success
 );
 

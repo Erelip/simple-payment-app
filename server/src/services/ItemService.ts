@@ -61,7 +61,6 @@ class ItemService {
     update = async (product_id: number, cart_id: number, order_id: number, number?: number): Promise<Item | null> => {
         try {
             const product = await ProductsService.getProductById(product_id);
-
             if (!product) throw new BadRequestException("Product not found");
             
             const product_unique = order_id ? ({

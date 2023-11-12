@@ -27,11 +27,9 @@ class CartController {
         const { product_id } = req.body;
         try {
             const product = await ProductsService.getProductById(parseInt(product_id));
-
             if (product == null ) throw new BadRequestException("Bad request")
 
             const cart = await CartService.add(id, parseInt(product_id));
-
             if (cart == null ) throw new BadRequestException("An error has occurred")
 
             return res.status(200).json(product);
@@ -47,7 +45,7 @@ class CartController {
         try {
             const cart = await CartService.getCartByUserId(user_id);
             if (cart == null ) throw new BadRequestException("An error has occurred")
-
+  
             if (quantity <= 0) {
                 const product = await ItemService.delete(product_id, cart.id);
                 if (product == null ) throw new BadRequestException("An error has occurred")
@@ -57,7 +55,7 @@ class CartController {
             const product = await ItemService.update(product_id, cart.id, 0, quantity);
             if (product == null ) throw new BadRequestException("An error has occurred")
 
-            return res.status(200).json(product);
+            return res.status(200).json(await CartService.getCartByUserId(user_id));
         } catch (err) {
             next(err);
         }

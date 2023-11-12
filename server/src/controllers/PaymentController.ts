@@ -42,20 +42,17 @@ class PaymentController {
     };
 
     success = async (req: Request, res: Response, next: NextFunction) => {
-        // const { id } = req.user;
-        const { token, PayerID } = req.query;
+        const { id } = req.user;
+        const { token, PayerID } = req.body;
         try {
-            if (token === undefined || PayerID === undefined) {
+            if (token === undefined && PayerID === undefined) {
                 throw new UnauthorizedException("Unauthorized");
             }
 
             const payment = await PaymentService.getOrderDetails(String(token));
+            if (!payment) throw new BadRequestException("Payment not found");
 
-            if (!payment) {
-                throw new BadRequestException("Payment not found");
-            }
-
-            const order = await OrderService.update(1, payment.id, 'Paid');
+            const order = await OrderService.update(id, payment.id, 'Paid');
 
             return res.status(200).json(order);
         } catch (err) {

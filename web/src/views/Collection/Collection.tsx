@@ -1,30 +1,33 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLoaderData } from 'react-router-dom';
 import { RequireAuth } from '../../utils';
 import App from '../../App';
 import { ProductsService } from '../../services';
-import { Products } from '../';
+import { Products, Product } from '../';
 
 const Collection: React.FC = () => {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <RequireAuth>
-            <Products />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/:id"
-        element={
-          <RequireAuth>
-            <App />
-          </RequireAuth>
-        }
-      />
-    </Routes>
+    <div>
+      <h2>Products Page</h2>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Products />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/:id"
+          element={
+            <RequireAuth>
+              <Product />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </div>
   );
 };
 

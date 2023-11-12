@@ -38,6 +38,9 @@ class ProductsService {
         const response = await fetch(`${this.endpoint}/cart`, {
             credentials: 'include',
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 product_id: product_id
             })
@@ -51,6 +54,9 @@ class ProductsService {
         const response = await fetch(`${this.endpoint}/cart`, {
             credentials: 'include',
             method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 product_id: product_id,
                 quantity: quantity
