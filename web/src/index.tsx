@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth, SignUp, SignIn, Collection } from './views';
 import { RequireAuth } from './utils';
+import { ProductsService } from './services';
 
 import {
   createBrowserRouter,
@@ -26,7 +27,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/collection/*",
-    element: <Collection />
+    element: <Collection />,
+    loader: async () => {
+      const productsService = new ProductsService();
+      const products = await productsService.getProducts();
+      return products;
+    }
   },
 ]);
 

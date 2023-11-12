@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RequireAuth } from '../../utils';
 import App from '../../App';
+import { ProductsService } from '../../services';
+import { Products } from '../';
 
 const Collection: React.FC = () => {
   return (
@@ -10,7 +12,7 @@ const Collection: React.FC = () => {
         path="/"
         element={
           <RequireAuth>
-            <App />
+            <Products />
           </RequireAuth>
         }
       />

@@ -11,9 +11,9 @@ const SignIn: React.FC = () => {
   const handleSignIn = async (email: string, password: string) => {
     const auth = new AuthenticationService();
     const data = await auth.signin(email, password);
-
     if (data.status === 'error') return null;
-
+    
+    document.cookie = `jwt=${data.data.access_token}; path=/`;
     localStorage.setItem('access_token', data.data.access_token);
     navigate('/collection');
   };

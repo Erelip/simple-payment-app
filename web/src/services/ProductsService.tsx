@@ -1,23 +1,22 @@
 class ProductsService {
-    private token: string | null;
     private endpoint: string;
     
     constructor() {
-        this.token = localStorage.getItem('token');
         this.endpoint = 'http://localhost:3000';
     }
 
     async getProducts() {
         const response = await fetch(`${this.endpoint}/products`, {
-            method: 'GET'
+            credentials: 'include',
+            method: 'GET',
         });
-
         const data = await response.json();
         return data;
     }
 
     async getProductById(id: number) {
         const response = await fetch(`${this.endpoint}/products/${id}`, {
+            credentials: 'include',
             method: 'GET'
         });
 
@@ -27,11 +26,8 @@ class ProductsService {
 
     async getCart() {
         const response = await fetch(`${this.endpoint}/cart`, {
+            credentials: 'include',
             method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${this.token}`,
-            },
         });
 
         const data = await response.json();
@@ -40,11 +36,8 @@ class ProductsService {
 
     async addToCart(product_id: number) {
         const response = await fetch(`${this.endpoint}/cart`, {
+            credentials: 'include',
             method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${this.token}`,
-            },
             body: JSON.stringify({
                 product_id: product_id
             })
@@ -56,11 +49,8 @@ class ProductsService {
 
     async updateCart(product_id: number, quantity: number) {
         const response = await fetch(`${this.endpoint}/cart`, {
+            credentials: 'include',
             method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${this.token}`,
-            },
             body: JSON.stringify({
                 product_id: product_id,
                 quantity: quantity
@@ -73,11 +63,8 @@ class ProductsService {
 
     async deleteCart(product_id: number) {
         const response = await fetch(`${this.endpoint}/cart`, {
+            credentials: 'include',
             method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${this.token}`,
-            }
         });
 
         const data = await response.json();
