@@ -3,10 +3,10 @@ services:
   mysql:
     image: mysql:8.0
     volumes:
-      - mysql-volume:/var/lib/mysql
-      - ./database:/app
+      - ./database:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: bradery
     ports:
       - "3306:3306"
     healthcheck:
@@ -15,6 +15,7 @@ services:
       timeout: 10s
       retries: 3
     command: --default-authentication-plugin=mysql_native_password
+
 
   server:
     container_name: 'server_bradery'
@@ -37,9 +38,7 @@ services:
       - "8081:8081"
     depends_on:
       - server
+      - mysql
     volumes:
       - /var/react/node_modules/
       - ./web:/app
-
-volumes:
-  mysql-volume:
