@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { SignIn, SignUp} from '../';
+// import { Route, Routes } from 'react-router-dom';
+// import { SignIn, SignUp} from '../';
 
 const Auth: React.FC = () => {
 

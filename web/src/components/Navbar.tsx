@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+// import React, { useState } from 'react';
+// import { Route, Routes, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC<any> = () => {
   return (

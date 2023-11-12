@@ -1,8 +1,13 @@
 import React from 'react';
 import { SignInForm } from '../../components';
 import AuthenticationService from '../../services/AuthenticationService';
+import {
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
   const handleSignIn = async (email: string, password: string) => {
     const auth = new AuthenticationService();
     const data = await auth.signin(email, password);
@@ -10,6 +15,7 @@ const SignIn: React.FC = () => {
     if (data.status === 'error') return null;
 
     localStorage.setItem('access_token', data.data.access_token);
+    navigate('/collection');
   };
 
   return (

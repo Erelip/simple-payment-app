@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Auth, SignUp, SignIn } from './views';
+import { Auth, SignUp, SignIn, Collection } from './views';
+import { RequireAuth } from './utils';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/register",
     element: <SignUp />,
+  },
+  {
+    path: "/collection/*",
+    element: <Collection />
   },
 ]);
 
